@@ -288,8 +288,8 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		expected string
 	}{
 		{
-			"-a * b",
-			"((-a) * b)",
+			"a * -b + c",
+			"((a * (-b)) + c)",
 		},
 		{
 			"!-a",
@@ -316,6 +316,10 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"(a + (b / c))",
 		},
 		{
+			"a * b - c",
+			"((a * b) - c)",
+		},
+		{
 			"a + b * c + d / e - f",
 			"(((a + (b * c)) + (d / e)) - f)",
 		},
@@ -338,11 +342,11 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		fmt.Println(tt.input, " | ", tt.expected)
 		l := lexer.New(tt.input)
 		p := New(l)
 		program := p.ParseProgram()
 		checkParserErrors(t, p)
-		fmt.Println()
 		actual := program.String()
 		if actual != tt.expected {
 			t.Errorf("expected=%q, got=%q", tt.expected, actual)
