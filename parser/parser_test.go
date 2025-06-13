@@ -19,8 +19,8 @@ func checkParserErrors(t *testing.T, p *Parser) {
 	}
 	t.FailNow()
 }
-func TestLetStatements(t *testing.T) {
 
+func TestLetStatements(t *testing.T) {
 	tests := []struct {
 		input              string
 		expectedIdentifier string
@@ -117,11 +117,10 @@ func TestReturnStatement(t *testing.T) {
 				returnStmt.TokenLiteral())
 		}
 
-		if !testLiteralExpression(t, returnStmt.Value, tt.expectedValue) {
+		if !testLiteralExpression(t, returnStmt.ReturnValue, tt.expectedValue) {
 			return
 		}
 	}
-
 }
 
 func TestIntegerLiteralExpression(t *testing.T) {
@@ -596,7 +595,6 @@ func TestCallExpressionParsing(t *testing.T) {
 	if !ok {
 		t.Fatalf("stmt is not ast.ExpressionStatement. got=%T",
 			program.Statements[0])
-
 	}
 	exp, ok := stmt.Expression.(*ast.CallExpression)
 	if !ok {
@@ -706,5 +704,4 @@ func testBoolLiteral(t *testing.T, bl ast.Expression, value bool) bool {
 		return false
 	}
 	return true
-
 }

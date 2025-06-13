@@ -67,15 +67,15 @@ func (ls *LetStatement) String() string {
 }
 
 type ReturnStatement struct {
-	Token token.Token
-	Value Expression
+	Token       token.Token
+	ReturnValue Expression
 }
 
 func (rs *ReturnStatement) String() string {
 	var out bytes.Buffer
 	out.WriteString(rs.TokenLiteral() + " ")
-	if rs.Value != nil {
-		out.WriteString(rs.Value.String())
+	if rs.ReturnValue != nil {
+		out.WriteString(rs.ReturnValue.String())
 	}
 	out.WriteString(";")
 	return out.String()
